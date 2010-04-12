@@ -1,0 +1,114 @@
+/*** Spruce 0.0.0.0.0.1...or there abouts ***/
+/*
+Spruce is (planned to be) a (primarily) server-side templating language based heavily on CSS 3
+and building on the heritage started over a decade ago by STTS 3:
+http://www.w3.org/TR/NOTE-STTS3
+
+Below is a rough example of a Spruce document.
+*/
+
+/*
+@include's are based off a combination of @namespace and @media syntax in CSS 3:
+http://www.w3.org/TR/css3-syntax/#defining
+
+Includes can be used to include (X)HTML and alter it within the Spruce sheet...
+*/
+@include url("http://demo.blueinkcms.com/__navigation") nav {
+	ul[class=navlist] { attr-class: value 'menu'; }
+	ul li a {
+		content: '<span>' contents '</span>' '<strong>link</strong>';
+	}
+	ul li a:outside {
+		content: '<div class="navlink"></div>';
+	}
+}
+/* ...or to reference a parameter/variable passed into Spruce at run time */
+@include param('navigation') nav; /* alterations could be done as above */
+
+/* Altering the variable is not required if you're happy with what you pull in */
+@include url('http://demo.blueinkcms.com/items/viewitem/gallery/1') gallery;
+
+/*** Main Spruce statements ***/
+
+/** Attributes **/
+/*
+The selector below actually selects the ul.menu item if it has a 'class' attribute.
+We use the 'value' keyword to reference the existing value, and add the 'navlist' class to the list.
+The 'attr-' prefixed properties are dynamic, and reference the selected elements attributes.
+*/
+ul.menu[class] { attr-class: value 'navlist'; }
+
+/*
+Attributes can be created using this syntax as well.
+Because the 'id' attribute does not yet exist, Spruce will create it, and set it's value to 'sidebar'.
+Had the 'value' keyword been used, but 'id' not previously existed, Spruce would create an empty 'id' attribute.
+No assistence is given by Spruce to assure proper attribute value output, so Spruce will let you use
+the 'value' keyword on the 'id' attribute and append 'sidebar' to it even though the resulting (X)HTML would be invalid.
+*/
+ul.menu { attr-id: 'sidebar'; }
+
+/*
+The 'content' property points to the "innerHTML" of the element selected,
+and setting it to anything replaces the contents of the item.
+*/
+ul.menu {
+	content: select('spruce > includes nav');
+	/* Check out the note on the "select()" function below [1] */
+}
+
+/*
+The 'self' property references the entire element, not just it's contents,
+so the following replaces ul.menu with the contents of the nav variable.
+*/
+#header .gallery {
+	self: select('spruce > includes gallery');
+}
+/*
+If, however, you want the original contents to remain, you can use the 'contents' value keyword.
+The below statement appends the value of the 'intro_text' parameter to the .intro element selected.
+*/
+#content .intro {
+	content: contents select('spruce > params intro_text');
+}
+/*
+Strings of content can be output as well.
+*/
+.column-one .video {
+	content: "Best video ever: " select('spruce > params video_widget');
+}
+/*
+Any combination of the above options is possible.
+*/
+.column-two {
+	content: select('.column-one .video') contents select('#content .intro') "We're glad you're here";
+}
+
+/*
+[1] select(<selector>[, <type>])
+<selector> - any valid Spruce selector
+<style> - self (default), html, or text
+The select() function allows an attribute value, text, or HTML to be retrieved from elsewhere in the DOM
+and returned as a value of the current property.
+
+The <type> parameter (optional) specifies what should be returned from the selected element.
+'self' is the element itself and it's children
+'html' is the innerHTML of the element (it's contents)
+'text' is the textual content of the element (all markup is removed)
+
+[2] attr(<name>, <type>, <default_value>)
+Spruce's attr() function follows the same pattern as the CSS 2.1 & CSS 3 specification:
+http://www.w3.org/TR/css3-values/#attribute
+It does, however, add selection of another element's attributes by "overloading" the <type> parameter.
+In addition to the type's defined in the CSS 3 specification, if <type> is a selector (in [STRING] format,
+not the word 'string' which is a valid attribute type). Example:
+attr('src', '#header img');
+
+
+[STRING] http://www.w3.org/TR/css3-values/#strings0
+*/ 
+
+
+
+
+
+
