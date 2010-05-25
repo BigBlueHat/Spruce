@@ -38,5 +38,5 @@
 }},
 
 {".column-two": {
-	"content": "select('.column-one .video') contents select('#content .intro') 'We\'re glad you\'re here'"
+	"content": "select('.column-one .video') contents select('#content .intro') \"We're glad you're here\""
 }}]
