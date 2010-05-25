@@ -92,7 +92,7 @@ and returned as a value of the current property.
 
 The <type> parameter (optional) specifies what should be returned from the selected element.
 'self' is the element itself and it's children
-'html' is the innerHTML of the element (it's contents)
+'html' is the innerHTML of the element (its contents)
 'text' is the textual content of the element (all markup is removed)
 
 [2] attr(<name>, <type>, <default_value>)
