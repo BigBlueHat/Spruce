@@ -1,6 +1,7 @@
-[{"@include":[{"url":"http://demo.blueinkcms.com/__navigation"},
-      "nav",
-      {
+{"@include": [
+	["url('http://demo.blueinkcms.com/__navigation')",
+	 "nav",
+     {
          "ul[class=navlist]":{
             "attr-class":"value 'menu'"
          },
@@ -10,33 +11,25 @@
          "ul li a:outside":{
             "content":"<div class='navlink'></div>"
          }
-      }
-   ]
-},
+     }
+    ],
+	["param('subnav')", "subnav"],
+    ["url('http://demo.blueinkcms.com/items/viewitem/gallery/1')", "gallery"]
+  ],
 
-{"@include": [{"param": "navigation"}, "nav"]},
-
-{"@include": [{"url": "http://demo.blueinkcms.com/items/viewitem/gallery/1"}, "gallery"]},
-
-{"ul.menu[class]": { "attr-class": "value 'navlist'" }},
-
-{"ul.menu": { "attr-id": "'sidebar'" }},
-
-{"ul.menu": {"content": {"select":"spruce > includes nav'"}}},
-
-{"#header .gallery": {
+ "ul.menu[class]": { "attr-class": "value 'navlist'" },
+ "ul.menu": { "attr-id": "'sidebar'" },
+ "ul.menu": {"content": "select('spruce > includes nav')"},
+ "#header .gallery": {
 	"self": "select('spruce > includes gallery')"
-	}
-},
-
-{"#content .intro": {
+	},
+ "#content .intro": {
 	"content": "contents select('spruce > params intro_text')"
-}},
-
-{".column-one .video": {
+ },
+ ".column-one .video": {
 	"content": "'Best video ever: ' select('spruce > params video_widget')"
-}},
-
-{".column-two": {
+ },
+ ".column-two": {
 	"content": "select('.column-one .video') contents select('#content .intro') \"We're glad you're here\""
-}}]
+ }
+}
