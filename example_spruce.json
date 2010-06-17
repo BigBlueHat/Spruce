@@ -19,17 +19,17 @@
 
  "ul.menu[class]": { "attr-class": "value 'navlist'" },
  "ul.menu": { "attr-id": "'sidebar'" },
- "ul.menu": {"content": "select('spruce > includes nav')"},
+ "ul.menu": {"content": "clone('spruce > includes nav')"},
  "#header .gallery": {
-	"self": "select('spruce > includes gallery')"
+	"self": "clone('spruce > includes gallery')"
 	},
  "#content .intro": {
-	"content": "contents select('spruce > params intro_text')"
+	"content": "contents clone('spruce > params intro_text')"
  },
  ".column-one .video": {
-	"content": "'Best video ever: ' select('spruce > params video_widget')"
+	"content": "'Best video ever: ' clone('spruce > params video_widget')"
  },
  ".column-two": {
-	"content": "select('.column-one .video') contents select('#content .intro') \"We're glad you're here\""
+	"content": "clone('.column-one .video') contents clone('#content .intro') 'We\\'re glad you\\'re here'"
  }
 }
